@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer - Edit</title>
+</head>
+<body>
+    <h1>Customer Edit</h1>
+    <form th:action="@{/templates/pages/customer/update}" method="post">
+        <input type="hidden" name="id" th:value="${data.id}">
+        <label>Account No : </label>
+        <input type="text" name="accountNo" th:value="${data.accountNo}"> <br/><br/>
+
+        <label>Name : </label>
+        <input type="text" name="name" th:value="${data.name}"> <br/><br/>
+
+        <label>Email : </label>
+        <input type="text" name="email" th:value="${data.email}"> <br/><br/>
+
+        <label>Phone Number : </label>
+        <input type="text" name="phoneNumber" th:value="${data.phoneNumber}"> <br/><br/>
+
+        <label>Address : </label>
+        <input type="text" name="address" th:value="${data.address}"> <br/><br/>
+
+        <button type="submit">Update</button> &nbsp;
+        <a th:href="@{/templates/pages/customer}">Back</a>
+    </form>
+</body>
+</html>
