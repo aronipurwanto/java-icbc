@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Index</title>
+</head>
+<body>
+    <h1>Customer Data</h1>
+    <a th:href="@{/templates/pages/customer/add}">Add New</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Account No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item :${dataList}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.accountNo}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.email}"></td>
+                <td th:text="${item.phoneNumber}"></td>
+                <td th:text="${item.address}"></td>
+                <td>
+                    <a th:href="@{/templates/pages/customer/edit/{id}(id=${item.id}) }">Edit</a> |
+                    <a th:href="@{/templates/pages/customer/detail/{id}(id=${item.id}) }">Detail</a> |
+                    <a th:href="@{/templates/pages/customer/delete/{id}(id=${item.id}) }">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
