@@ -1,6 +1,5 @@
 package com.icbc.springmvc.service;
 
-import com.icbc.springmvc.entity.Assessment;
 import com.icbc.springmvc.model.AssessmentModel;
 
 import java.util.List;

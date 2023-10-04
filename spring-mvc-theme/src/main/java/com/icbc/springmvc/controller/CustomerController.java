@@ -68,7 +68,7 @@ public class CustomerController {
 
     @GetMapping("/detail/{id}")
     public ModelAndView detail(@PathVariable("id") long id){
-        ModelAndView view = new ModelAndView("pages/customer/details");
+        ModelAndView view = new ModelAndView("pages/customer/detail");
         // get data from service
         CustomerModel data = service.getById(id).orElse(null);
         if(data == null){

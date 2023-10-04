@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "tbl_assessment_option")
-public class AssessmentOption {
+public class AssessmentOptionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -27,9 +27,9 @@ public class AssessmentOption {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ASSESSMENT_ID")
-    private Assessment assessment;
+    private AssessmentEntity assessment;
 
-    public AssessmentOption(String optionName, Double optionValue, Assessment assessment) {
+    public AssessmentOptionEntity(String optionName, Double optionValue, AssessmentEntity assessment) {
         this.optionName = optionName;
         this.optionValue = optionValue;
         this.assessment = assessment;

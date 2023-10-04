@@ -1,6 +1,6 @@
 package com.icbc.springmvc.service;
 
-import com.icbc.springmvc.entity.Assessment;
+import com.icbc.springmvc.entity.AssessmentEntity;
 import com.icbc.springmvc.model.AssessmentModel;
 import com.icbc.springmvc.repository.AssessmentRepo;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class AssessmentServiceImpl implements AssessmentService{
     private final AssessmentRepo assessmentRepo;
     @Override
     public List<AssessmentModel> getAll() {
-        List<Assessment> result = this.assessmentRepo.findAll();
+        List<AssessmentEntity> result = this.assessmentRepo.findAll();
         if(result.isEmpty()){
             return Collections.emptyList();
         }
@@ -31,7 +31,7 @@ public class AssessmentServiceImpl implements AssessmentService{
 
     @Override
     public Optional<AssessmentModel> getById(Long id) {
-        Assessment assessment = this.assessmentRepo.findById(id).orElse(null);
+        AssessmentEntity assessment = this.assessmentRepo.findById(id).orElse(null);
         if(assessment == null) {
             return Optional.empty();
         }

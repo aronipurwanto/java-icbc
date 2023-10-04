@@ -1,7 +1,6 @@
 package com.icbc.springmvc.model;
 
-import com.icbc.springmvc.entity.Assessment;
-import jakarta.persistence.Column;
+import com.icbc.springmvc.entity.AssessmentEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,7 @@ public class AssessmentModel {
     private String categoryName;
     private int countChild;
 
-    public AssessmentModel(Assessment entity) {
+    public AssessmentModel(AssessmentEntity entity) {
         this.id = entity.getId();
         this.code = entity.getCode();
         this.name = entity.getName();

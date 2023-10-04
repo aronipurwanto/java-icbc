@@ -1,6 +1,5 @@
 package com.icbc.springmvc.entity;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "tbl_assessment")
-public class Assessment {
+public class AssessmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -30,33 +29,33 @@ public class Assessment {
     private Long parentId;
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Assessment> child = new ArrayList<>();
+    private List<AssessmentEntity> child = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "PARENT_ID")
-    private Assessment parent;
+    private AssessmentEntity parent;
 
     @OneToMany(mappedBy = "assessment", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AssessmentOption> options = new ArrayList<>();
+    private List<AssessmentOptionEntity> options = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
     private CategoryEntity category;
 
-    public Assessment(String code, String name, CategoryEntity category) {
+    public AssessmentEntity(String code, String name, CategoryEntity category) {
         this.code = code;
         this.name = name;
         this.category = category;
     }
 
-    public Assessment(String code, String name, Assessment parent, CategoryEntity category) {
+    public AssessmentEntity(String code, String name, AssessmentEntity parent, CategoryEntity category) {
         this.code = code;
         this.name = name;
         this.parent = parent;
         this.category = category;
     }
 
-    public void addOption(AssessmentOption option){
+    public void addOption(AssessmentOptionEntity option){
         this.options.add(option);
         option.setAssessment(this);
     }
