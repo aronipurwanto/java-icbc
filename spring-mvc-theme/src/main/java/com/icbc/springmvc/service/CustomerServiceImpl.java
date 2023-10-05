@@ -5,6 +5,7 @@ import com.icbc.springmvc.entity.CustomerEntity;
 import com.icbc.springmvc.model.CustomerAddressModel;
 import com.icbc.springmvc.model.CustomerModel;
 import com.icbc.springmvc.repository.CustomerRepo;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,9 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService{
     private final CustomerRepo customerRepo;
-
-    public CustomerServiceImpl(CustomerRepo customerRepo) {
-        this.customerRepo = customerRepo;
-    }
 
     @Override
     public List<CustomerModel> gets() {

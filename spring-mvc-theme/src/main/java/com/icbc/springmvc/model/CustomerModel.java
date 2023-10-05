@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -26,5 +27,11 @@ public class CustomerModel {
         this.name = entity.getName();
         this.email = entity.getEmail();
         this.phoneNumber = entity.getPhoneNumber();
+
+        if(!entity.getAddress().isEmpty()){
+            this.address = entity.getAddress().stream()
+                    .map(CustomerAddressModel::new)
+                    .collect(Collectors.toList());
+        }
     }
 }

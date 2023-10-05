@@ -41,7 +41,6 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Phone Number</th>
-                            <th>Address</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -52,7 +51,6 @@
                             <td th:text="${item.name}"></td>
                             <td th:text="${item.email}"></td>
                             <td th:text="${item.phoneNumber}"></td>
-                            <td th:text="${item.address}"></td>
                             <td>
                                 <a th:href="@{/customer/edit/{id}(id=${item.id}) }" class="btn btn-xs btn-warning">
                                     <i class="fas fa-edit"></i>
