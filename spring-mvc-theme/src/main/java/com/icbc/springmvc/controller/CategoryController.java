@@ -35,6 +35,12 @@ public class CategoryController {
         return view;
     }
 
+    @GetMapping("/add-modal")
+    public ModelAndView addModal(){
+        ModelAndView view = new ModelAndView("pages/category/_addPartial");
+        return view;
+    }
+
     @PostMapping("/save")
     public ModelAndView saveCategory(@ModelAttribute CategoryModel request){
         // call save from service
