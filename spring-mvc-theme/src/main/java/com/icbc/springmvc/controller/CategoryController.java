@@ -87,8 +87,22 @@ public class CategoryController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") long id){
-        service.delete(id);
+    public ModelAndView getDelete(@PathVariable("id") long id){
+        ModelAndView view = new ModelAndView("pages/category/delete");
+        // get data from service
+        CategoryModel data = service.getById(id).orElse(null);
+        if(data == null){
+            return new ModelAndView("redirect:/category");
+        }
+
+        // send data to view
+        view.addObject("data",data);
+        return view;
+    }
+
+    @PostMapping("/delete-save")
+    public String delete(@ModelAttribute CategoryModel request){
+        service.delete(request.getId());
         return "redirect:/category";
     }
 }

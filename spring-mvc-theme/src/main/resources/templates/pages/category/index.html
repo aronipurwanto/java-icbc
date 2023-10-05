@@ -107,47 +107,40 @@
         $("#btn-add").click(function (e){
             // mencegah link bekerja
             e.preventDefault();
-            // get url
-            var url = $(this).attr('href');
-
             // call get modal
-            getModal(url);
+            getModal($(this));
         });
 
         $(".btn-edit").on("click", function (event){
             // mencegah link bekerja
             event.preventDefault();
 
-            // get url
-            var url = $(this).attr('href');
-
             // call method getModel
-            getModal(url);
+            //getModal($('.btn-edit'));
+            getModal($(this));
         });
 
         $(".btn-view").on("click", function (event){
             // mencegah link bekerja
             event.preventDefault();
 
-            // get url
-            var url = $(this).attr('href');
-
             // call method getModel
-            getModal(url);
+            // getModal($('.btn-view'));
+            getModal($(this));
         });
 
         $(".btn-delete").on("click", function (event){
             // mencegah link bekerja
             event.preventDefault();
 
-            // get url
-            var url = $(this).attr('href');
-
             // call method getModel
-            getModal(url);
+            //getModal($('.btn-delete'));
+            getModal($(this));
         });
 
-        function getModal(url){
+        function getModal(element){
+            // get url
+            var url = $(element).attr('href');
             // ajax
             $.ajax({
                 url: url,
