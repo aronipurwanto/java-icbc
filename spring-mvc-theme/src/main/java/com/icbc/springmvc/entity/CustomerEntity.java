@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -31,5 +32,10 @@ public class CustomerEntity {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<CustomerAddressEntity> address;
+    private List<CustomerAddressEntity> address = new ArrayList<>();
+
+    public void addAddress(CustomerAddressEntity customerAddress){
+        this.address.add(customerAddress);
+        customerAddress.setCustomer(this);
+    }
 }

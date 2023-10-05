@@ -1,6 +1,8 @@
 package com.icbc.springmvc.service;
 
+import com.icbc.springmvc.entity.CustomerAddressEntity;
 import com.icbc.springmvc.entity.CustomerEntity;
+import com.icbc.springmvc.model.CustomerAddressModel;
 import com.icbc.springmvc.model.CustomerModel;
 import com.icbc.springmvc.repository.CustomerRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -54,6 +56,16 @@ public class CustomerServiceImpl implements CustomerService{
         CustomerEntity entity = new CustomerEntity();
         // copy value property to entity
         BeanUtils.copyProperties(request, entity);
+
+        if(!request.getAddress().isEmpty()){
+            for(CustomerAddressModel addressModel: request.getAddress()) {
+                CustomerAddressEntity addressEntity = new CustomerAddressEntity();
+                BeanUtils.copyProperties(addressModel, addressEntity);
+                // entity add address
+                entity.addAddress(addressEntity);
+            }
+        }
+
         // try save
         try {
             this.customerRepo.save(entity);

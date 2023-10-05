@@ -35,6 +35,13 @@ public class CustomerController {
         return view;
     }
 
+    @GetMapping("/add-address/{index}")
+    public ModelAndView addCustomer(@PathVariable("index") int index){
+        ModelAndView view = new ModelAndView("pages/customer/_address");
+        view.addObject("index", index);
+        return view;
+    }
+
     @PostMapping("/save")
     public ModelAndView saveCustomer(@ModelAttribute CustomerModel request){
         // call save from service

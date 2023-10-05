@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,8 +16,8 @@ public class CustomerModel {
     private Long accountNo;
     private String name;
     private String email;
-    private String address;
     private String phoneNumber;
+    private List<CustomerAddressModel> address = new ArrayList<>();
 
     // inject => dependency injection
     public CustomerModel(CustomerEntity entity){
