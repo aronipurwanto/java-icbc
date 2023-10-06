@@ -4,6 +4,7 @@ import com.icbc.springmvc.entity.CustomerAddressEntity;
 import com.icbc.springmvc.entity.CustomerEntity;
 import com.icbc.springmvc.model.CustomerAddressModel;
 import com.icbc.springmvc.model.CustomerModel;
+import com.icbc.springmvc.repository.CustomerAddressRepo;
 import com.icbc.springmvc.repository.CustomerRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService{
     private final CustomerRepo customerRepo;
+    private final CustomerAddressRepo addressRepo;
 
     @Override
     public List<CustomerModel> gets() {
@@ -70,6 +72,28 @@ public class CustomerServiceImpl implements CustomerService{
             log.info("Save customer success");
         }catch (Exception e){
             log.warn("Save customer failed, error: {}", e.getMessage());
+        }
+    }
+
+    @Override
+    public void saveAddress(CustomerAddressModel request) {
+        if(request.getCustomerId() == 0L){
+            return;
+        }
+
+        CustomerEntity customer = this.customerRepo.findById(request.getCustomerId()).orElse(null);
+        if(customer == null){
+            return;
+        }
+
+        CustomerAddressEntity entity = new CustomerAddressEntity();
+        BeanUtils.copyProperties(request, entity);
+        entity.setCustomer(customer);
+        try{
+            this.addressRepo.save(entity);
+            log.info("Save customer address success");
+        }catch (Exception e){
+            log.error("Save customer is failed, error: {}", e.getMessage());
         }
     }
 

@@ -1,6 +1,7 @@
 package com.icbc.springmvc.controller;
 
 import com.icbc.springmvc.entity.CountryEntity;
+import com.icbc.springmvc.model.CustomerAddressModel;
 import com.icbc.springmvc.model.CustomerModel;
 import com.icbc.springmvc.service.CountryService;
 import com.icbc.springmvc.service.CustomerService;
@@ -105,12 +106,21 @@ public class CustomerController {
      * address custom
      */
 
-    @GetMapping("/address/new")
-    public ModelAndView addressNew(){
+    @GetMapping("/address/new/{id}")
+    public ModelAndView addressNew(@PathVariable("id") Long id){
         ModelAndView view = new ModelAndView("pages/customer/_address-new");
         List<CountryEntity> country = countryService.getCountry();
         // send country to view
         view.addObject("country", country);
+        view.addObject("customerId", id);
         return view;
+    }
+
+    @PostMapping("/address/save")
+    public ModelAndView saveCustomerAddress(@ModelAttribute CustomerAddressModel request){
+        // call save from service
+        service.saveAddress(request);
+        // redirect to index
+        return new ModelAndView("redirect:/customer/edit/"+request.getCustomerId());
     }
 }

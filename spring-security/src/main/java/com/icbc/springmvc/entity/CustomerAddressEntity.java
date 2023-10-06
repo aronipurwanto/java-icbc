@@ -16,6 +16,9 @@ public class CustomerAddressEntity {
     @Column(name = "CUSTOMER_ADDR_ID")
     private Long id;
 
+    @Column(name = "CUSTOMER_ID", insertable = false, updatable = false)
+    private Long customerId;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CUSTOMER_ID")
     private CustomerEntity customer;

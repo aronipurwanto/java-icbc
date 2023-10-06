@@ -11,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 @AllArgsConstructor
 public class CustomerAddressModel {
     private Long id;
+    private Long customerId;
 
     private String addressName;
     private String address;
