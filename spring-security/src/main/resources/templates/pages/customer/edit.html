@@ -50,7 +50,7 @@
                         <div class="form-group row">
                             <label for="phoneNumber" class="col-sm-2 col-form-label">Address</label>
                             <div class="col-sm-10">
-                                <a th:href="@{~/customer/address/new}" class="btn btn-primary" id="btn-address-new">
+                                <a th:href="@{~/customer/address/new/{id}(id=${data.id}) } " class="btn btn-primary" id="btn-address-new">
                                     <i class="fas fa-address-card"></i>
                                      Add Address
                                 </a>
