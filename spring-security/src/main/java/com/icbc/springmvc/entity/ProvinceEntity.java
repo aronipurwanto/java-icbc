@@ -27,4 +27,10 @@ public class ProvinceEntity {
 
     @Column(name = "PROVINCE_NAME", length = 128, nullable = false)
     private String name;
+
+    public ProvinceEntity(CountryEntity country, String code, String name) {
+        this.country = country;
+        this.code = code;
+        this.name = name;
+    }
 }

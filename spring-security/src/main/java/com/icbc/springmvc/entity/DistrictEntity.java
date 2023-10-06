@@ -27,4 +27,10 @@ public class DistrictEntity {
 
     @Column(name = "DISTRICT_NAME", length = 128, nullable = false)
     private String name;
+
+    public DistrictEntity(ProvinceEntity province, String code, String name) {
+        this.province = province;
+        this.code = code;
+        this.name = name;
+    }
 }

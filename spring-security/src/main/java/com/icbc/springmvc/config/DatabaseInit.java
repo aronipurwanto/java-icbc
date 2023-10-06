@@ -1,10 +1,7 @@
 package com.icbc.springmvc.config;
 
 import com.icbc.springmvc.entity.*;
-import com.icbc.springmvc.repository.AssessmentRepo;
-import com.icbc.springmvc.repository.CategoryRepo;
-import com.icbc.springmvc.repository.RoleRepo;
-import com.icbc.springmvc.repository.UserRepo;
+import com.icbc.springmvc.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -24,6 +21,10 @@ public class DatabaseInit implements CommandLineRunner {
     private final PasswordEncoder encoder;
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
+    private final CountryRepo countryRepo;
+    private final ProvinceRepo provinceRepo;
+    private final DistrictRepo districtRepo;
+    private final SubDistrictRepo subDistrictRepo;
 
     @Override
     public void run(String... args) throws Exception {
@@ -165,6 +166,92 @@ public class DatabaseInit implements CommandLineRunner {
             log.info("Category save successfully");
         }catch (Exception e){
             log.error("Category save is failed, error: {}", e.getMessage());
+        }
+    }
+
+    private void initCountry(){
+        if(countryRepo.count() > 0L){
+            return;
+        }
+
+        try {
+            countryRepo.saveAll(Arrays.asList(
+                    new CountryEntity(0L, "ID","Indonesia"),
+                    new CountryEntity(0L, "MY","Malaysia")
+            ));
+        }catch (Exception e){
+            log.error("Save country failed, error: {}", e.getMessage());
+        }
+
+        if(provinceRepo.count() == 0L){
+            CountryEntity indo = countryRepo.findByCode("ID").orElse(null);
+            try{
+                provinceRepo.saveAll(Arrays.asList(
+                        new ProvinceEntity(indo,"P001", "Aceh"),
+                        new ProvinceEntity(indo,"P002", "Sumatra Barat"),
+                        new ProvinceEntity(indo,"P003", "Sumatra Utara"),
+                        new ProvinceEntity(indo,"P004", "Sumatra Selatan"),
+                        new ProvinceEntity(indo,"P005", "Lampung"),
+                        new ProvinceEntity(indo,"P006", "Jakarta"),
+                        new ProvinceEntity(indo,"P007", "Jawa Barat"),
+                        new ProvinceEntity(indo,"P008", "Jawa Tengah"),
+                        new ProvinceEntity(indo,"P009", "Jawa Timur"),
+                        new ProvinceEntity(indo,"P010", "Kalimantan Barat")
+                ));
+            }catch (Exception e){
+                log.error("Save province error: {}", e.getMessage());
+            }
+        }
+
+        if(districtRepo.count() == 0){
+            ProvinceEntity aceh = this.provinceRepo.findByCode("P001").orElse(null);
+            List<DistrictEntity> acehDistrict = Arrays.asList(
+                    new DistrictEntity(aceh, "AC001","Aceh Distric 01"),
+                    new DistrictEntity(aceh, "AC001","Aceh Distric 02"),
+                    new DistrictEntity(aceh, "AC001","Aceh Distric 03")
+            );
+
+            ProvinceEntity jakarta = this.provinceRepo.findByCode("P006").orElse(null);
+            List<DistrictEntity> jakartaDistrict = Arrays.asList(
+                    new DistrictEntity(jakarta, "JKT001","Jakarta Utara"),
+                    new DistrictEntity(jakarta, "JKT002","Jakarta Barat"),
+                    new DistrictEntity(jakarta, "JKT003","Jakarta Timur"),
+                    new DistrictEntity(jakarta, "JKT004","Jakarta Selatan"),
+                    new DistrictEntity(jakarta, "JKT005","Jakarta Pusat")
+            );
+
+            List<DistrictEntity> disticts = new ArrayList<>();
+            disticts.addAll(acehDistrict);
+            disticts.addAll(jakartaDistrict);
+
+            try{
+                this.districtRepo.saveAll(disticts);
+            }catch (Exception e){
+                log.error("Save district error: {}", e.getMessage());
+            }
+        }
+
+        if(subDistrictRepo.count() == 0){
+            DistrictEntity jkt01 = this.districtRepo.findByCode("JKT001").orElse(null);
+            DistrictEntity jkt02 = this.districtRepo.findByCode("JKT002").orElse(null);
+            DistrictEntity jkt03 = this.districtRepo.findByCode("JKT003").orElse(null);
+
+            List<SubDistrictEntity> subJkt01 = Arrays.asList(
+                    new SubDistrictEntity(jkt01,"SUBJKT001","Sub District JKT 01"),
+                    new SubDistrictEntity(jkt01,"SUBJKT002","Sub District JKT 02"),
+                    new SubDistrictEntity(jkt01,"SUBJKT003","Sub District JKT 03"),
+                    new SubDistrictEntity(jkt02,"SUBJKT004","Sub District JKT 04"),
+                    new SubDistrictEntity(jkt02,"SUBJKT005","Sub District JKT 05"),
+                    new SubDistrictEntity(jkt02,"SUBJKT006","Sub District JKT 06"),
+                    new SubDistrictEntity(jkt03,"SUBJKT007","Sub District JKT 07"),
+                    new SubDistrictEntity(jkt03,"SUBJKT008","Sub District JKT 08")
+            );
+
+            try {
+                this.subDistrictRepo.saveAll(subJkt01);
+            }catch (Exception e){
+                log.error("Save sub district error: {}", e.getMessage());
+            }
         }
     }
 }

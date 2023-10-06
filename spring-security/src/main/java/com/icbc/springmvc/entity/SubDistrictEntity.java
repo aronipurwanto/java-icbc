@@ -27,4 +27,10 @@ public class SubDistrictEntity {
 
     @Column(name = "SUB_DISTRICT_NAME", length = 128, nullable = false)
     private String name;
+
+    public SubDistrictEntity(DistrictEntity district, String code, String name) {
+        this.district = district;
+        this.code = code;
+        this.name = name;
+    }
 }
