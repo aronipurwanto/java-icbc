@@ -26,15 +26,31 @@ public class CustomerAddressEntity {
     @Column(name = "ADDRESS", length = 128)
     private String address;
 
-    @Column(name = "DISTRICT", length = 128)
-    private String district;
+    @Column(name = "DISTRICT_ID")
+    private Long districtId;
 
-    @Column(name = "SUB_DISTRICT", length = 128)
-    private String subDistrict;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "DISTRICT_ID", insertable = false, updatable = false)
+    private DistrictEntity district;
 
-    @Column(name = "PROVINCE", length = 128)
-    private String province;
+    @Column(name = "SUB_DISTRICT_ID")
+    private Long subDistrictId;
 
-    @Column(name = "COUNTRY", length = 128)
-    private String country;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "SUB_DISTRICT_ID", insertable = false, updatable = false)
+    private SubDistrictEntity subDistrict;
+
+    @Column(name = "PROVINCE_ID")
+    private Long provinceId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "PROVINCE_ID", insertable = false, updatable = false)
+    private ProvinceEntity province;
+
+    @Column(name = "COUNTRY_ID")
+    private Long countryId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "COUNTRY_ID", insertable = false, updatable = false)
+    private CountryEntity country;
 }

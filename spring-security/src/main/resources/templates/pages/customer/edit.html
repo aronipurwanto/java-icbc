@@ -81,14 +81,14 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Country</label>
                                             <div class="col-sm-10">
-                                                <input th:value="${addressItem.country}" type="text" class="form-control" th:name="|address[${iter.index}].country|" placeholder="Country">
+                                                <input th:value="${addressItem.countryName}" type="text" class="form-control" placeholder="Country">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Province</label>
                                             <div class="col-sm-10">
-                                                <input th:value="${addressItem.province}" type="text" class="form-control" th:name="|address[${iter.index}].province|" placeholder="Province">
+                                                <input th:value="${addressItem.provinceName}" type="text" class="form-control" placeholder="Province">
                                             </div>
                                         </div>
                                     </div>
@@ -97,21 +97,21 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">District</label>
                                             <div class="col-sm-10">
-                                                <input th:value="${addressItem.district}" type="text" class="form-control" th:name="|address[${iter.index}].district|" placeholder="District">
+                                                <input th:value="${addressItem.districtName}" type="text" class="form-control" placeholder="District">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">City</label>
+                                            <label class="col-sm-2 col-form-label">Sub District</label>
                                             <div class="col-sm-10">
-                                                <input th:value="${addressItem.getSubDistrict}" type="text" class="form-control" th:name="|address[${iter.index}].subDistrict|" placeholder="Sub District">
+                                                <input th:value="${addressItem.subDistrictName}" type="text" class="form-control" placeholder="Sub District">
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Address</label>
                                             <div class="col-sm-10">
-                                                <input th:value="${addressItem.address}" type="text" class="form-control" th:name="|address[${iter.index}].address|" placeholder="Adress">
+                                                <input th:value="${addressItem.address}" type="text" class="form-control" placeholder="Adress">
                                             </div>
                                         </div>
                                     </div>
@@ -137,8 +137,26 @@
         $('#btn-address-new').click(function (event){
             event.preventDefault();
 
-            $('#modal-form').modal('show');
+            getModal($(this));
         });
+
+        // load modal
+        function getModal(element){
+            // get url
+            var url = $(element).attr('href');
+            // ajax
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'HTML',
+                success: function (result){
+                    // replace modal-content
+                    $('.modal-content').html(result);
+                    // menampilkan modal
+                    $('#modal-form').modal('show');
+                }
+            });
+        }
     </script>
 </th:block>
 </body>

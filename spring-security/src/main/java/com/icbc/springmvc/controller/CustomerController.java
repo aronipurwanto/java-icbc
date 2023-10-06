@@ -1,7 +1,10 @@
 package com.icbc.springmvc.controller;
 
+import com.icbc.springmvc.entity.CountryEntity;
 import com.icbc.springmvc.model.CustomerModel;
+import com.icbc.springmvc.service.CountryService;
 import com.icbc.springmvc.service.CustomerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +14,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/customer")
+@RequiredArgsConstructor
 public class CustomerController {
     private final CustomerService service;
+    private final CountryService countryService;
 
-    @Autowired
-    public CustomerController(CustomerService service) {
-        this.service = service;
-    }
 
     @GetMapping
     public ModelAndView index(){
@@ -32,6 +33,9 @@ public class CustomerController {
     @GetMapping("/add")
     public ModelAndView addCustomer(){
         ModelAndView view = new ModelAndView("pages/customer/add");
+        List<CountryEntity> country = countryService.getCountry();
+        // send country to view
+        view.addObject("country", country);
         return view;
     }
 
@@ -91,5 +95,18 @@ public class CustomerController {
     public String delete(@PathVariable("id") long id){
         service.delete(id);
         return "redirect:/customer";
+    }
+
+    /**
+     * address custom
+     */
+
+    @GetMapping("/address/new")
+    public ModelAndView addressNew(){
+        ModelAndView view = new ModelAndView("pages/customer/_address-new");
+        List<CountryEntity> country = countryService.getCountry();
+        // send country to view
+        view.addObject("country", country);
+        return view;
     }
 }
