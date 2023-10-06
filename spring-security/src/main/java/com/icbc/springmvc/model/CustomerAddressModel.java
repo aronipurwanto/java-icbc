@@ -14,7 +14,7 @@ public class CustomerAddressModel {
     private String addressName;
     private String address;
     private String district;
-    private String city;
+    private String subDistrict;
     private String province;
     private String country;
 

@@ -29,8 +29,8 @@ public class CustomerAddressEntity {
     @Column(name = "DISTRICT", length = 128)
     private String district;
 
-    @Column(name = "CITY", length = 128)
-    private String city;
+    @Column(name = "SUB_DISTRICT", length = 128)
+    private String subDistrict;
 
     @Column(name = "PROVINCE", length = 128)
     private String province;

@@ -36,6 +36,8 @@ public class DatabaseInit implements CommandLineRunner {
         initRole();
         // generate user
         initUser();
+        // generate country
+        initCountry();
     }
 
     private void initRole(){
