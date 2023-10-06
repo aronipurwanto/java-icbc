@@ -9,7 +9,12 @@ import com.icbc.springmvc.repository.CustomerRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +27,18 @@ import java.util.stream.Collectors;
 public class CustomerServiceImpl implements CustomerService{
     private final CustomerRepo customerRepo;
     private final CustomerAddressRepo addressRepo;
+
+    @Override
+    public Page<CustomerModel> getPage() {
+        Pageable pageable = PageRequest.of(0,10);
+        Page<CustomerEntity> pages = this.customerRepo.findAll(pageable);
+
+        List<CustomerModel> list = pages.getContent().stream().map(CustomerModel::new)
+                .collect(Collectors.toList());
+
+        Page<CustomerModel> result = new PageImpl<CustomerModel>(list, pageable, pages.getTotalElements());
+        return result;
+    }
 
     @Override
     public List<CustomerModel> gets() {

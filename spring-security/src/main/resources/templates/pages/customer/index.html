@@ -41,6 +41,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Phone Number</th>
+                            <th>Address</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -51,6 +52,16 @@
                             <td th:text="${item.name}"></td>
                             <td th:text="${item.email}"></td>
                             <td th:text="${item.phoneNumber}"></td>
+                            <td>
+                                <div th:each="addr : ${item.address}">
+                                    Address Name : <strong th:text="${addr.addressName}"></strong> <br/>
+                                    Country: <strong th:text="${addr.countryName}"></strong> <br/>
+                                    Province: <strong th:text="${addr.provinceName}"></strong> <br/>
+                                    District: <strong th:text="${addr.districtName}"></strong> <br/>
+                                    Sub District: <strong th:text="${addr.subDistrictName}"></strong> <br/>
+                                    Address: <strong th:text="${addr.address}"></strong> <br/>
+                                </div>
+                            </td>
                             <td>
                                 <a th:href="@{/customer/edit/{id}(id=${item.id}) }" class="btn btn-xs btn-warning">
                                     <i class="fas fa-edit"></i>
