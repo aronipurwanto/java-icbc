@@ -12,7 +12,7 @@
         <!-- wajib ada -->
         <div class="col-12">
             <!-- widged -->
-            <div class="card card-warning">
+            <div class="card card-info">
                 <div class="card-header">
                     <h3 class="card-title">Edit Customer Data</h3>
                 </div>
@@ -157,6 +157,70 @@
                 }
             });
         }
+
+        // set modal
+        $('#modal-form').on('change','#countryId', function (){
+            var countryId = $(this).val();
+            var url = '/api/v1/country/province/'+ countryId;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'JSON',
+                success: function (result){
+                    $('#modal-form').find('#provinceId').empty();
+                    $('#modal-form').find('#provinceId').append('<option value="">Select Province</option>');
+
+                    $('#modal-form').find('#districtId').empty();
+                    $('#modal-form').find('#districtId').append('<option value="">Select District</option>');
+
+                    $('#modal-form').find('#subDistrictId').empty();
+                    $('#modal-form').find('#subDistrictId').append('<option value="">Select Sub District</option>');
+                    $.each(result, function (key, value){
+                        $('#modal-form').find('#provinceId').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                    });
+                }
+            });
+        });
+
+        $('#modal-form').on('change','#provinceId', function (){
+            var proviceId = $(this).val();
+            var url = '/api/v1/country/district/'+ proviceId;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'JSON',
+                success: function (result){
+                    $('#modal-form').find('#districtId').empty();
+                    $('#modal-form').find('#districtId').append('<option value="">Select District</option>');
+
+                    $('#modal-form').find('#subDistrictId').empty();
+                    $('#modal-form').find('#subDistrictId').append('<option value="">Select Sub District</option>');
+                    $.each(result, function (key, value){
+                        $('#modal-form').find('#districtId').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                    });
+                }
+            });
+        });
+
+
+        $('#modal-form').on('change','#districtId', function (){
+            var districtId = $(this).val();
+            var url = '/api/v1/country/sub-district/'+ districtId;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'JSON',
+                success: function (result){
+                    $('#modal-form').find('#subDistrictId').empty();
+                    $('#modal-form').find('#subDistrictId').append('<option value="">Select Sub District</option>');
+                    $.each(result, function (key, value){
+                        $('#modal-form').find('#subDistrictId').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+                    });
+                }
+            });
+        })
+
+
     </script>
 </th:block>
 </body>

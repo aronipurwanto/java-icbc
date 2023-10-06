@@ -43,6 +43,10 @@ public class CustomerController {
     public ModelAndView addCustomer(@PathVariable("index") int index){
         ModelAndView view = new ModelAndView("pages/customer/_address");
         view.addObject("index", index);
+
+        List<CountryEntity> country = countryService.getCountry();
+        // send country to view
+        view.addObject("country", country);
         return view;
     }
 
