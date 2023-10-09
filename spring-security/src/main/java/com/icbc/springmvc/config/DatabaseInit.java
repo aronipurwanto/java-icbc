@@ -25,6 +25,7 @@ public class DatabaseInit implements CommandLineRunner {
     private final ProvinceRepo provinceRepo;
     private final DistrictRepo districtRepo;
     private final SubDistrictRepo subDistrictRepo;
+    private final MenuRepo menuRepo;
 
     @Override
     public void run(String... args) throws Exception {
@@ -45,11 +46,40 @@ public class DatabaseInit implements CommandLineRunner {
             return;
         }
 
+        MenuEntity dashboard = menuRepo.save(new MenuEntity("DashboardMenu","Dashboard","/dashboard","","fas fa-tachometer-alt",1,"",null));
+        MenuEntity master = menuRepo.save(new MenuEntity("MasterMenu","Master","/master","","fas fa-cog",2,"",null));
+        List<MenuEntity> masterSub = Arrays.asList(
+                new MenuEntity("MasterSub1","User","/master/user","","far fa-circle",1,"",master),
+                new MenuEntity("MasterSub2","Role","/master/role","","far fa-circle",2,"",master),
+                new MenuEntity("MasterSub3","Grade","/master/grade","","far fa-circle",3,"",master),
+                new MenuEntity("MasterSub4","Factor","/master/factor","","far fa-circle",4,"",master),
+                new MenuEntity("MasterSub5","Table","/master/lookup","","far fa-circle",5,"",master),
+                new MenuEntity("MasterSub6","Reference","/master/reference","","far fa-circle",6,"",master)
+        );
+        this.menuRepo.saveAll(masterSub);
+
+        MenuEntity customerMenu = this.menuRepo.save(new MenuEntity("CustomerMenu","Customer","/customer","","fas fa-users",3,"",null));
+        List<MenuEntity> cusInquire = Arrays.asList(
+                new MenuEntity("CustomerSubMenu1","Customer Data","/customer","","fas fa-tachometer-alt",1,"",customerMenu),
+                new MenuEntity("CustomerSubMenu2","Customer Inquiry","/customer/inquiry","","fas fa-tachometer-alt",2,"",customerMenu),
+                new MenuEntity("CustomerSubMenu3","Pefindo Individual","/pefindo/individual","","fas fa-tachometer-alt",3,"",customerMenu),
+                new MenuEntity("CustomerSubMenu4","Pefindo Company","/pefindo/company","","fas fa-tachometer-alt",4,"",customerMenu)
+        );
+        this.menuRepo.saveAll(cusInquire);
+
+        MenuEntity scoreMenu = this.menuRepo.save(new MenuEntity("ScoreMenu","Scoring","/scoring/business","","fas fa-tachometer-alt",4,"",null));
+        List<MenuEntity> scoreMenuSub = Arrays.asList(
+                new MenuEntity("ScoringMenuSub1","Business Score","/scoring/business/list","","far fa-circle",1,"",scoreMenu),
+                new MenuEntity("ScoringMenuSub2","Retail Score","/scoring/retail/list","","far fa-circle",2,"",scoreMenu),
+                new MenuEntity("ScoringMenuSub3","Upload Score","/scoring/upload","","far fa-circle",3,"",scoreMenu)
+        );
+        this.menuRepo.saveAll(scoreMenuSub);
+
         try {
             roleRepo.saveAll(List.of(
-                    new RoleEntity("ROLE_ADMIN"),
-                    new RoleEntity("ROLE_USER"),
-                    new RoleEntity("ROLE_SUPER_USER")
+                    new RoleEntity("ROLE_ADMIN", List.of(dashboard, master, customerMenu)),
+                    new RoleEntity("ROLE_USER", List.of(customerMenu)),
+                    new RoleEntity("ROLE_SUPER_USER", List.of(dashboard, master, customerMenu))
             ));
             log.info("Save role success..!");
         }catch (Exception e){

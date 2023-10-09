@@ -34,6 +34,15 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item" th:each="menu, index :${#lists.sort(T(com.icbc.springmvc.helper.MenuHelper).menuList(), T(com.icbc.springmvc.helper.MenuHelper).comparator)}" th:object="${menu}">
+                    <a th:href="@{${menu.url}}" class="nav-link"><i class="nav-icon " th:classappend="${menu.icon}"></i><p>[[${menu.title}]] <i class="right fas fa-angle-left" th:if="${#lists.size(menu.subMenu)} > 0"></i></p></a>
+                    <ul class="nav nav-treeview" th:if="${#lists.size(menu.subMenu)} > 0">
+                        <li class="nav-item" th:each="subMenu, indexMenu : ${#lists.sort(menu.subMenu, T(com.icbc.springmvc.helper.MenuHelper).comparator)}" th:object="${subMenu}">
+                            <a th:href="@{${subMenu.url}}" class="nav-link"><i class="far fa-circle nav-icon"></i><p th:text="${subMenu.title}"></p></a>
+                        </li>
+                    </ul>
+                </li>
+
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
@@ -65,36 +74,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            Transaksi
-                            <i class="fas fa-angle-left right"></i>
-                            <span class="badge badge-info right">6</span>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="pages/layout/fixed-topnav.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Fixed Navbar</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/layout/fixed-footer.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Fixed Footer</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Collapsed Sidebar</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
