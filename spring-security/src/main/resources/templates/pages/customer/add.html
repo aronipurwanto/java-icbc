@@ -5,6 +5,22 @@
     <title>Customer - Add</title>
 </head>
 <body>
+
+<!-- breadcrumb -->
+<div class="row mb-2" layout:fragment="breadcrumb">
+    <div class="col-sm-6">
+        <h1>Customer</h1>
+    </div>
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a th:href="@{~/home}">Home</a></li>
+            <li class="breadcrumb-item"><a th:href="@{~/customer}">Customer</a></li>
+            <li class="breadcrumb-item active">New</li>
+        </ol>
+    </div>
+</div>
+<!-- /.breadcrumb -->
+
 <!-- wajib ada-->
 <div class="container-fluid" layout:fragment="content">
     <!-- Small boxes (Stat box) wajib ada-->
